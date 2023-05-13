@@ -1,0 +1,39 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+
+public class CountDown : MonoBehaviour
+{
+    [SerializeField] GameObject panel;
+    [SerializeField] Text timeText;
+    [SerializeField] float duration, currentTime;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        panel.SetActive(false);
+        currentTime = duration;
+        timeText.text = "Time Left: " + currentTime.ToString();
+        StartCoroutine(TimeIEn());
+    }
+
+    IEnumerator TimeIEn()
+    {
+        while(currentTime >= 0)
+        {
+            timeText.text = "Time Left: " + currentTime.ToString();
+            yield return new WaitForSeconds(1f);
+            currentTime--;
+        }
+        OpenPanel();
+    }
+
+    void OpenPanel()
+    {
+        timeText.text = "";
+        panel.SetActive(true);
+    }
+    
+}
